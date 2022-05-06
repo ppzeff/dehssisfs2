@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <!--    <link href="../static/css/bootstrap.min.css" rel="stylesheet">-->
+    <!--    <link href="/../../css/bootstrap.min.css" rel="stylesheet">-->
+    <link th:rel="stylesheet" th:href="@{/css/bootstrap.min.css} "/>
+    <title th:text="${title}">Environmental_WASTE_REPORT</title>
+</head>
+
+<body>
+<header th:insert="blocks/header :: header "></header>
+<main>
+    <div class="container col-xl-6 col-lg-8 col-sm-12">
+
+        <form class="needs-validation was-validated" method="post" action="/waste/shiftreport/regreport"
+              enctype="multipart/form-data">
+
+            <p class="h1 my-3 text-center">WASTE ежесменный отчет по отходам</p>
+
+            <div class="mb-3 mt-3">
+                <label for="secondFIOLabel" class="form-label">Укажите ФИО первого сотрудника:</label>
+                <input class="form-control form-control-lg" name="firstFIO" list="firstDataListOptions"
+                       id="secondFIOLabel" placeholder="Начните ввод для поиска..." required>
+                <div class="invalid-feedback">Пожалуйста введите данные</div>
+
+                <!--                <option th:each="el : ${workSites}"-->
+                <!--                        th:value="${el.workSite}"-->
+                <!--                        th:text="${el.id}+': '+${el.workSite}"-->
+                <!--                ></option>-->
+                <datalist id="firstDataListOptions">
+                    <option th:each="el:${wasteWorkers}"
+                            th:value="${el.getFIO()}"
+                            th:text="${el.getFIO()}"
+                    ></option>
+                    <!--                <option value="Кондрашов Сергей">-->
+                    <!--                <option value="Суетин Алексей">-->
+                    <!--                <option value="Буланян Станислав">-->
+                    <!--                <option value="Хасанов Назулло">-->
+                </datalist>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="secondFIOLabel" class="form-label">Укажите ФИО второго сотрудника:</label>
+                <input class="form-control form-control-lg" name="secondFIO" list="secondDataListOptions"
+                       id="firstFIOLabel" placeholder="Начните ввод для поиска..." required>
+                <div class="invalid-feedback">Пожалуйста введите данные</div>
+                <datalist id="secondDataListOptions">
+                    <option th:each="el:${wasteWorkers}"
+                            th:value="${el.getFIO()}"
+                            th:text="${el.getFIO()}"
+                    ></option>
+                </datalist>
+            </div>
+
+            <div class="mb-3 mt-3">
+                <label for="validationInput1" class="form-label">Введите количество вогончиков направленных с
+                    произваодства:</label>
+                <input class="form-control form-control-lg" type="number" id="validationInput1" placeholder="51"
+                       required
+                       name="numberWagons">
+                <div class="invalid-feedback">Пожалуйста введите данные</div>
+            </div>
+
+            <div class="mb-3 mt-3">
+                <label for="validationInput2" class="form-label">Введите количество больших серых ящиков направленных с
+                    произваодства:</label>
+                <input class="form-control form-control-lg" type="number" id="validationInput2" placeholder="4" required
+                       name="numberBoxes">
+                <div class="invalid-feedback">Пожалуйста введите данные</div>
+            </div>
+
+            <div class="mb-3 mt-3">
+                <label for="validationInput3" class="form-label">Введите количество утилизированных паллет:</label>
+                <input class="form-control form-control-lg" type="number" id="validationInput3" placeholder="13"
+                       required
+                       name="numberPallets">
+                <div class="invalid-feedback">Пожалуйста введите данные</div>
+            </div>
+
+            <!--            <div class="mb-3 mt-3">-->
+            <!--                <label for="validationServer02" class="form-label">Укажите дату начала работ:</label>-->
+            <!--                <input type="date" class="form-control" id="validationServer02" name="dataStart" required>-->
+            <!--                <div class="invalid-feedback">-->
+            <!--                    Необходимо указать дату-->
+            <!--                </div>-->
+            <!--            </div>-->
+
+            <div>
+                <label class="form-label">Смена день/ночь?</label>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="validationFormCheck1" required
+                           name="shiftDay" value="1">
+                    <label class="form-check-label" for="validationFormCheck1">Дневная</label>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input type="radio" class="form-check-input" id="validationFormCheck2" required
+                           name="shiftDay" value="0">
+                    <label class="form-check-label" for="validationFormCheck2">Ночная</label>
+                    <div class="invalid-feedback">Необходимо выбрать один вариант</div>
+                </div>
+            </div>
+
+            <!--            <div class="mb-3">-->
+            <!--                <label class="form-label ">Выберите участок проведения работ:</label>-->
+            <!--                <select class="form-select" required aria-label="select example" name="workSite">-->
+            <!--                    <option value="">Открыть выпадающее меню</option>-->
+            <!--                    <option value="Фасовка">Фасовка</option>-->
+            <!--                    <option value="ССиМ">ССиМ</option>-->
+            <!--                    <option value="3">ССиМ пост #2</option>-->
+            <!--                </select>-->
+            <!--                <div class="invalid-feedback">Необходимо выбрать участок</div>-->
+            <!--            </div>-->
+
+            <!--            <div class="mb-3">-->
+            <!--                <label for="validationServer04" class="form-label">Выберите участок проведения работ:</label>-->
+            <!--                <select class="form-select" id="validationServer04" name="workSite" required>-->
+            <!--                <option value="">Открыть выпадающее меню</option>-->
+            <!--                <option th:each="el : ${workSites}"-->
+            <!--                        th:value="${el.workSite}"-->
+            <!--                        th:text="${el.id}+': '+${el.workSite}"-->
+            <!--                ></option>-->
+            <!--                </select>-->
+            <!--                <div class="invalid-feedback">Необходимо выбрать участок</div>-->
+            <!--            </div>-->
+
+            <div class="mb-3">
+                <label class="form-label ">Сделайте фото из точки №1</label>
+                <input type="file" accept="image/*" class="form-control form-control-lg" aria-label="file example"
+                       name="firstFoto" required/>
+                <div class="invalid-feedback">Необходимо приложить фото из точки №1</div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label ">Сделайте фото из точки №2</label>
+                <input type="file" accept="image/*" class="form-control form-control-lg" aria-label="file example"
+                       name="secondFoto" required/>
+                <div class="invalid-feedback">Необходимо приложить фото из точки №2</div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label ">Сделайте фото из точки №3</label>
+                <input type="file" accept="image/*" class="form-control form-control-lg" aria-label="file example"
+                       name="thirdFoto" required/>
+                <div class="invalid-feedback">Необходимо приложить фото из точки №3</div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label ">Сделайте фото из точки №4</label>
+                <input type="file" accept="image/*" class="form-control form-control-lg" aria-label="file example"
+                       name="fourthFoto" required/>
+                <div class="invalid-feedback">Необходимо приложить фото из точки №4</div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                Отправить в базу
+            </button>
+
+        </form>
+
+
+    </div>
+</main>
+
+<div th:insert="blocks/footer :: footer"></div>
+<!--    <script src="../static/js/bootstrap.bundle.min.js"></script>-->
+<!--<script src="js/bootstrap.bundle.min.js"></script>-->
+<!--<script src="js/main.js"></script>-->
+
+<!--<script th:src="@{/js/bootstrap.bundle.min.js}"></script>-->
+
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="https://www.thymeleaf.org">
+<head></head>
+<body>
+<h2 th:text="'LOTO ND зарегистрирован под номером '+${lotoND.id}+', '+ ${dateRegistration}"></h2>
+<h3 th:text="'ФИО LOTO специалиста: '+${lotoND.specialistFIO}"></h3>
+<h3 th:text="'Комплексная блокировка: '+${lotoND.complexBlocking}"></h3>
+<h3 th:text="'Дата начала работ: '+${dateStart}"></h3>
+<h3 th:text="'Участок проведения работ: '+${lotoND.workSite}"></h3>
+<h3>Фото титульного листа LOTO разрешения: </h3>
+<img src="sample.png" th:src="|cid:${lotoND.fotoName}|"/>
+</body>
+</html>

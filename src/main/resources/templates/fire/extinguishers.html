@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <!--     <link href="../../static/css/bootstrap.min.css" rel="stylesheet"> -->
+    <!--    <link href="/../../css/bootstrap.min.css" rel="stylesheet">-->
+    <link th:rel="stylesheet" th:href="@{/css/bootstrap.min.css} "/>
+    <title th:text="${title}">FIRE. Добавить огнетушитель.</title>
+</head>
+
+<body>
+<header th:insert="blocks/header :: header "></header>
+<main>
+
+    <div class="container col-auto " >
+        <h2 class="display-2 mt-5 text-center">Реестр огнетушителей</h2>
+
+        <a href="../addextinguisher" class="btn btn-primary" role="button" data-bs-toggle="button">добавить огнетушитель</a>
+        <table class="mt-2 table border-secondary border-4 text-center ">
+            <thead class="   border-1 text-center">
+            <tr class="border-1 border-success ">
+                <th class=" border-1 ">Номер</th>
+                <th class=" border-1 ">Дата введения в эксплуатацию</th>
+                <th class=" border-1 ">Место установки</th>
+                <th class=" border-1 ">Тип/марка</th>
+                <th class=" border-1 ">Производитель</th>
+                <th class=" border-1 ">Дата изготовления</th>
+                <th class=" border-1 ">Марка заряженного ОТВ</th>
+                <th class=" border-1 ">Номер производителя</th>
+
+            </tr>
+            </thead>
+            <tbody class="border-primary border-1">
+
+            <tr class="" th:each="el : ${extinguishers}">
+                <td class="border-1" ><a th:text="${el.number}" th:href="'/fire/extinguishers/'+${el.id}"> </a></td>
+                <td class="border-1" th:text="${el.date}">2</td>
+                <td class="border-1" th:text="${el.compartment}">2</td>
+                <td class="border-1" th:text="${el.type}">3</td>
+                <td class="border-1" th:text="${el.manufacturer}">4</td>
+                <td class="border-1" th:text="${el.dateOfManufacture}">5</td>
+                <td class="border-1" th:text="${el.substanceBrand}">6</td>
+                <td class="border-1" th:text="${el.factoryNumber}">7</td>
+            </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+</main>
+
+<div th:insert="blocks/footer :: footer"></div>
+<!--    <script src="../static/js/bootstrap.bundle.min.js"></script>-->
+<!--<script src="js/bootstrap.bundle.min.js"></script>-->
+<!--<script src="js/main.js"></script>-->
+
+<!--<script th:src="@{/js/bootstrap.bundle.min.js}"></script>-->
+
+
+</body>
+
+</html>

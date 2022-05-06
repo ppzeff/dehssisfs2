@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <!-- <link href="../../static/css/bootstrap.min.css" rel="stylesheet"> -->
+    <!--    <link href="/../../css/bootstrap.min.css" rel="stylesheet">-->
+    <link th:rel="stylesheet" th:href="@{/css/bootstrap.min.css} "/>
+    <title th:text="${title}">FIRE. Добавить огнетушитель.</title>
+</head>
+
+<body>
+<header th:insert="blocks/header :: header "></header>
+<main>
+
+    <div class="container col-auto" th:object="${extinguisher}">
+        <h2 class="display-2 mt-5 text-center">Эксплуатационный паспорт огнетушителя</h2>
+        <ul class="list-group" style="">
+            <li class="list-group-item">
+                <span class="fw-light">Номер присвоенный огнетушителю: </span>
+                <span class="fw-bolder " th:text="*{number}"></span>
+            </li>
+
+            <li class="list-group-item">
+                <span class="fw-light">Дата введения огнетушителя в эксплуатацию: </span>
+                <span class="fw-bolder " th:text="*{date}"></span>
+            </li>
+
+            <li class="list-group-item">
+                <span class="fw-light">Тип и марка огнетушителя: </span>
+                <span class="fw-bolder " th:text="*{type}"></span>
+            </li>
+
+            <!--            <li class="list-group-item">-->
+            <!--                <span class="fw-light">Место установки огнетушителя: </span>-->
+            <!--                <span class="fw-bolder " th:text="*{compartment}"></span>-->
+            <!--            </li>-->
+
+            <li class="list-group-item">
+                <span class="fw-light">Завод производитель огнетушителя: </span>
+                <span class="fw-bolder " th:text="*{manufacturer}"></span>
+            </li>
+
+            <li class="list-group-item">
+                <span class="fw-light">Заводской номер: </span>
+                <span class="fw-bolder " th:text="*{factoryNumber}"></span>
+            </li>
+
+            <li class="list-group-item">
+                <span class="fw-light">Дата изготовления огнетушителя: </span>
+                <span class="fw-bolder " th:text="*{dateOfManufacture}"></span>
+            </li>
+
+            <li class="list-group-item">
+                <span class="fw-light">Марка (концентрация) заряженного ОТВ: </span>
+                <span class="fw-bolder " th:text="*{substanceBrand}"></span>
+            </li>
+        </ul>
+
+        <form th:action="'/fire/'+${extinguisher.id}+'/addcheckstring'" method="post">
+            <table class="mt-2 table border-secondary border-4 text-center ">
+                <thead class="   border-1 text-center">
+                <tr class="border-1 border-success ">
+                    <th class=" border-1 " rowspan="2">Дата и вид прведенного технического обслуживания</th>
+                    <th class=" border-1 " colspan="5">Результаты технического обслуживания огнетушителя</th>
+                    <th class=" border-1 " rowspan="2">Должность, фамилия, инициалы и подпись ответственного
+                        лица
+                    </th>
+                </tr>
+                <tr class=" border-1 border-secondary">
+                    <th class=" border-1">внешний вид и состояние узлов огнетушителя</th>
+                    <th class=" border-1">полная масса огнетушителя (кг)</th>
+                    <th class=" border-1">давление (при наличии индикатора давления) или масса газового баллона
+                    </th>
+                    <th class=" border-1 ">состояние ходовой части передвижного огнетушителя</th>
+                    <th class=" border-1">принятые меры по устранению отмеченных недостатков</th>
+                </tr>
+                </thead>
+                <tbody class="border-primary border-1">
+
+                <tr class="" th:each="el : ${extinguisher.getListCheckString()}">
+                    <td class="border-1" th:text="${el.checkDate}">1</td>
+                    <td class="border-1" th:text="${el.condition}">2</td>
+                    <td class="border-1" th:text="${el.mass}">3</td>
+                    <td class="border-1" th:text="${el.pressure}">4</td>
+                    <td class="border-1" th:text="${el.condition2}">5</td>
+                    <td class="border-1" th:text="${el.mery}">6</td>
+                    <td class="border-1" th:text="${el.FIO}">7</td>
+                </tr>
+
+
+                <tr class="" th:object="${checkstring}">
+
+                    <td class="border-1"><input name="checkDate" type="date" class="form-control"></td>
+                    <td class="border-1">
+                        <select name="condition" class="form-select">
+                            <option selected disabled value="">Выберите...</option>
+                            <option th:each="el : ${appearance}"
+                                    th:value="${el.type}"
+                                    th:text="${el.type}"
+                            ></option>
+                        </select>
+                    </td>
+                    <td class="border-1"><input type="text" class="form-control" name="mass" id="mass"></td>
+                    <td class="border-1"><input type="text" class="form-control" name="pressure" id="pressure"></td>
+                    <td class="border-1">
+                        <select name="condition2" class="form-select">
+                            <option selected disabled value="">Выберите...</option>
+                            <option th:each="el : ${stateOfNodes}"
+                                    th:value="${el.type}"
+                                    th:text="${el.type}"
+                            ></option>
+                        </select>
+                    </td>
+                    <td class="border-1"><input type="text" class="form-control" placeholder="-" name="mery"
+                                                id="mery"></td>
+                    <td class="border-1"><input type="text" class="form-control" placeholder="Петров В. В."
+                                                name="FIO" id="FIO"></td>
+                    <input type="hidden" th:value="*{id}" name="id" />
+                </tr>
+
+                </tbody>
+            </table>
+
+            <button type="submit" class="btn btn-primary">
+                добавить осмотр
+            </button>
+        </form>
+    </div>
+</main>
+
+<div th:insert="blocks/footer :: footer"></div>
+<!--    <script src="../static/js/bootstrap.bundle.min.js"></script>-->
+<!--<script src="js/bootstrap.bundle.min.js"></script>-->
+<!--<script src="js/main.js"></script>-->
+
+<!--<script th:src="@{/js/bootstrap.bundle.min.js}"></script>-->
+
+
+</body>
+
+</html>

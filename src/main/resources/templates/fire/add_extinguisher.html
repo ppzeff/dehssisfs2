@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+<!--    <link href="../../static/css/bootstrap.min.css" rel="stylesheet">-->
+    <!--    <link href="/../../css/bootstrap.min.css" rel="stylesheet">-->
+    <link th:rel="stylesheet" th:href="@{/css/bootstrap.min.css} "/>
+    <title th:text="${title}">FIRE. Добавить огнетушитель.</title>
+</head>
+
+<body>
+<header th:insert="blocks/header :: header "></header>
+<main>
+    <div class="container col-xxl-6 col-xl-6 col-lg-6">
+
+<!--        <form class="needs-validation was-validated" method="post" action="/fire/addextinguisher"-->
+        <form class="" method="post" action="/fire/addextinguisher"
+              enctype="multipart/form-data" th:object="${extinguisher}">
+
+            <p class="h1 my-3 text-center">FIRE. Добавить огнетушитель.</p>
+
+
+            <div class="row mb-3">
+                <label for="validationnumber" class="form-label">Номер присвоенный огнетушителю</label>
+                <input type="number" class="form-control" id="validationnumber"
+                       name="number" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="validationdate" class="form-label">Дата введения огнетушителя в эксплуатацию</label>
+                <input type="date" class="form-control" id="validationdate"
+                       name="date" required>
+                <div class="invalid-feedback">
+                    Необходимо указать дату
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="validationtype" class="form-label">Тип и марка огнетушителя</label>
+                <input type="text" class="form-control" id="validationtype"
+                       name="type" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="compartment" class="form-label">Место установки огнетушителя:</label>
+                <select class="form-select" id="compartment" name="compartment" required>
+                    <option selected disabled value="">Открыть выпадающее меню</option>
+                    <option th:each="el : ${workSites}"
+                            th:value="${el.workSite}"
+                            th:text="${el.id}+': '+${el.workSite}"
+                    ></option>
+                </select>
+                <div class="invalid-feedback">Необходимо выбрать участок</div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="validationmanufacturer" class="form-label">Завод производитель огнетушителя</label>
+                <input type="text" class="form-control" id="validationmanufacturer"
+                       name="manufacturer" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="validationfactoryNumber" class="form-label">Заводской номер</label>
+                <input type="text" class="form-control" id="validationfactoryNumber"
+                       name="factoryNumber" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="validationdateOfManufacture" class="form-label">Дата изготовления огнетушителя</label>
+                <input type="date" class="form-control" id="validationdateOfManufacture"
+                       name="dateOfManufacture" required>
+                <div class="invalid-feedback">
+                    Необходимо указать дату
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="validationcsubstanceBrand" class="form-label">Марка (концентрация) заряженного ОТВ</label>
+                <input type="text" class="form-control" id="validationcsubstanceBrand"
+                       name="substanceBrand" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" >
+                добавить огнетушитель
+            </button>
+
+        </form>
+
+
+    </div>
+</main>
+
+<div th:insert="blocks/footer :: footer"></div>
+<!--    <script src="../static/js/bootstrap.bundle.min.js"></script>-->
+<!--<script src="js/bootstrap.bundle.min.js"></script>-->
+<!--<script src="js/main.js"></script>-->
+
+<!--<script th:src="@{/js/bootstrap.bundle.min.js}"></script>-->
+
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link th:rel="stylesheet" th:href="@{/css/bootstrap.min.css} "/>
+
+    <title th:text="${title}">Title</title>
+</head>
+<body>
+<header th:insert="blocks/header :: header "></header>
+
+<main>
+    <section class="mt-5 mb-5 col-xl-6 col-md-8 col-sm-12" style="margin-left: auto; margin-right: auto;">
+        <h5 class="text-center">LOTO ND</h5>
+    </section>
+
+    <section class="mb-5 col-12" style="margin-left: auto; margin-right: auto;">
+
+        <div>
+            <table class="table table-bordered table-hover table-striped text-center ">
+                <thead>
+                <tr>
+                    <th scope="col">Номер НД</th>
+                    <th scope="col">ФИО LOTO специалиста</th>
+                    <th scope="col">Дата регистрации</th>
+                    <th scope="col">Дата начала работ</th>
+                    <th scope="col">Комплексная блокировка?</th>
+                    <th scope="col">участок проведения работ</th>
+                    <th scope="col">фото</th>
+
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="el : ${LOTONds}">
+                    <th scope="row" th:text="${el.id}"></th>
+                    <!--                    <td th:text="${el.id}"></td>-->
+                    <td th:text="${el.specialistFIO}"></td>
+                    <td th:text="${el.someDate}"></td>
+                    <td th:text="${el.dataStart}"></td>
+                    <td th:text="${el.complexBlocking}"></td>
+                    <td th:text="${el.workSite}"></td>
+                    <td><a th:href="'/downloadFile/'+${el.fotoName}" th:text="${el.id}"></a></td>
+                </tr>
+                <!--                /downloadFile/-->
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+
+</main>
+
+<div th:insert="blocks/footer :: footer"></div>
+<script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
